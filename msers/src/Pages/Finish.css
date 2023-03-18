@@ -1,0 +1,83 @@
+.redirect__header {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.redirect__content-header {
+   font-weight: bolder;
+}
+
+.redirect__body {
+    width: 50%;
+}
+
+a:link, a:visited {
+  color: #00A98C;
+}
+
+.finish-content {
+  margin: 0% 0% 0% 5%;
+  text-align: left;
+  width: 90%;
+}
+
+.form-check-input:checked {
+  background-color: #00A98C !important;
+  border:#00A98C !important;
+}
+
+.example {
+  color: rgba(0, 0, 0, 0.63);
+  font-size: 12px;
+}
+
+textarea:focus {
+  outline: none; /* remove the default focus outline */
+  border-color: #00A98C !important; /* set the border color on focus */
+  box-shadow: 0 0 5px #00a98d91 !important;
+}
+
+.survey__image {
+  width: 40% !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.engagement-header {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+#standard__select_2 {
+    width: 240px;
+    padding: 2% 0% 2% 4%;
+    border-radius: 5px;
+    color: grey;
+}
+
+.back-icon {
+  font-size: 30px;
+}
+
+.next-icon {
+  font-size: 30px;
+}
+
+.slide-no {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.submit-btn {
+    background: #00A98C;
+    border: none;
+    border-radius: 50px;
+    color: #FFFFFF;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 1% 6% 1% 6%;
+    margin: 5% 0% 0% 0%;
+}

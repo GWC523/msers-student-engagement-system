@@ -1,0 +1,31 @@
+body {
+    margin: 0;
+}
+
+main {
+    margin: 16px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    color: #FFFFFF;
+    font-weight: 300;
+}
+
+.navbar__title {
+    color: #00A98C;
+    font-weight: 800;
+    margin-right: auto;
+    font-size: 150%;
+    padding: 10px 10px;
+    margin-top: 1%;
+    margin-left: 4%;
+}
+
+.navbar__item {
+    padding: 10px 10px;
+    cursor: pointer;
+    vertical-align: middle;
+}

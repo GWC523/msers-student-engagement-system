@@ -1,0 +1,16 @@
+.heart-icon {
+    font-size: 50px;
+    margin-top: 10%;
+    color: #00A98C;
+    animation:pop-in 0.5s;
+}
+
+.thank-you-title {
+    font-size: 50px;
+    font-weight: 600;
+}
+
+@keyframes pop-in {
+     0% { opacity: 0; transform: scale(0.1); }
+     50% { opacity: 1; transform: scale(1); }
+}
