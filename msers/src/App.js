@@ -6,18 +6,26 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import React, { useEffect } from 'react'
 
 /** PAGES **/
 import Homepage from './Pages/Homepage';
 import Detector from './Pages/Detector';
 import Finish from './Pages/Finish';
 import ThankYou from './Pages/ThankYou';
+import icon from '../src/Assets/Images/favicon.ico';
+
 
 
 function App() {
   //APP NAME
   document.title = "MSERS";
   document.body.style = "background: #FFFFFF;";
+
+  useEffect(() => {
+        const favicon = document.getElementById('favicon');
+        favicon.setAttribute('href', icon);
+  }, []);
 
   return (
     <div className="App">
