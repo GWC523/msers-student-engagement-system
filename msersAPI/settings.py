@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'api.apps.ApiConfig',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'msersAPI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'msers/build')],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,11 +86,11 @@ WSGI_APPLICATION = 'msersAPI.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'msers',
-        'HOST': 'localhost',
+        'NAME': 'MSERS',
+        'HOST': 'database-1.cryir9k1bcnn.us-west-2.rds.amazonaws.com', #localhost
         'PORT': 3306,
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'admin', #root
+        'PASSWORD': 'Windarcher0511', #
     }
 }
 
@@ -127,13 +128,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
+AWS_ACCESS_KEY_ID = 'AKIAYI4DMIUX5KCGW4RN'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'msersapp'
+AWS_S3_REGION_NAME = 'us-west-2'
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+
+
 STATIC_URL = '/static/'
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build','static')
+]
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'msers/build/static')
-]
 
 CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'
