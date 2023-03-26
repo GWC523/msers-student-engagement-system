@@ -2,6 +2,9 @@
   "dependencies": {
     "js-cookie": "^3.0.1"
   },
-
-  "build": "react-scripts build && cp build/favicon.ico build/static/favicon.ico"
+  "build": "react-scripts build && cp build/favicon.ico build/static/favicon.ico",
+  "devDependencies": {
+    "webpack": "^5.76.3",
+    "webpack-cli": "^5.0.1"
+  }
 }

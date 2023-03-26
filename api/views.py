@@ -198,6 +198,9 @@ def DetermineEngagement(request):
     participant_id = request.data.get('participant_id')
     timestamp = request.data.get('timestamp')
     frame_data = request.data.get('frame_data')
+    emotional_engagement = request.data.get('emotional_engagement')
+
+    print("Emotional Engagement:", emotional_engagement)
 
     if frame_data is None:
         # handle the case where frame_data is None
@@ -216,14 +219,14 @@ def DetermineEngagement(request):
         last_img = None
 
     print(last_img is not None)
-    engagement_result = msers.detect_overall_eng_per_frame(img, last_img, last_img)
+    engagement_result = msers.detect_overall_eng_per_frame(img, last_img, last_img, emotional_engagement)
     print(engagement_result)
 
     frame = SystemDetectedEngagement(timestamp=timestamp,
                                      student_id=student_id, 
                                      participant_id=participant_id,
                                      frame_data=converted_frame_data,
-                                     emotional_engagement=engagement_result["emotional"],
+                                     emotional_engagement=emotional_engagement,
                                      behavioral_engagement=engagement_result["behavioral"],
                                      cognitive_engagement=engagement_result["cognitive"])
     frame.save()

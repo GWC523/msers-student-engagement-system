@@ -1,4 +1,3 @@
-from rmn import RMN
 import cv2
 import dlib
 import numpy as np
@@ -17,14 +16,6 @@ class MSERS:
           self.enable_emotional = True
           self.margin = 10
         
-
-    def detect_emotion(self, frame):
-        m = RMN()
-        frame = np.fliplr(frame).astype(np.uint8)
-
-        results = m.detect_emotion_for_single_frame(frame)                
-        return results[0]["emo_label"],results[0]["emo_proba"]
-
     def detect_gesture(self, frame, prev_pos):
         hand = YOLO(weights='yolo.h5', threshold=0.8)
         fingertips = Fingertips(weights='fingertip.h5')
@@ -164,35 +155,9 @@ class MSERS:
                 return mouth_img, 0
             else:
                 return 0, 0
-                
-
-    def detect_emotional_eng(self, frame):
-        emotion_data = self.detect_emotion(frame)
-        # print(emotion_data)
-                
-        if emotion_data[0] == "happy":
-            emotional_eng = emotion_data[1] * 1 * 100
-        elif emotion_data[0] == "surprise":
-            emotional_eng = emotion_data[1] * 1 * 100
-        elif emotion_data[0] == "neutral":
-            emotional_eng = emotion_data[1] * 0.8 * 100
-        elif emotion_data[0] == "sad":
-            emotional_eng = emotion_data[1] * 0.4 * 100
-        elif emotion_data[0] == "angry":
-            emotional_eng = emotion_data[1] * 0.3 * 100
-        elif emotion_data[0] == "fear":
-            emotional_eng = emotion_data[1] * 0.25 * 100
-        elif emotion_data[0] == "disgusted":
-            emotional_eng = emotion_data[1] * 0.2 * 100
-        else:
-            emotional_eng = 0
-
-        # print("Emotional Engagement: %.2f" % emotional_eng)    
-        return emotional_eng
     
     def detect_behavioral_cognitive_eng(self, frame, prev_pos, detector, predictor, m_start, m_end, prev_mouth_img, margin, emotional_data):
         gaze_data = self.detect_gaze(frame)
-        emotional_data = self.detect_emotional_eng(frame)
         gesture_data = self.detect_gesture(frame, prev_pos)
         speaker_data = self.detect_speak(frame, detector, predictor, m_start, m_end, prev_mouth_img, margin)
 
@@ -221,7 +186,7 @@ class MSERS:
         # print("Cognitive Engagement: %.2f" % cognitive_eng)
         return cognitive_eng, gesture_data[0], speaker_data[0], speaker_data[2]
     
-    def detect_overall_eng(self):
+    def detect_overall_eng(self, emotional_engagement):
 
         #SPEAK VARIABLES
         # initialize dlib's face detector (HOG-based) and then create
@@ -247,15 +212,14 @@ class MSERS:
                 continue
 
             try:
-                result_emotional = self.detect_emotional_eng(frame)
-                result_behavioral_cognitive = self.detect_behavioral_cognitive_eng(frame, prev_pos_1, detector, predictor, m_start, m_end, prev_mouth_img_1, i1, margin, result_emotional)
+                result_behavioral_cognitive = self.detect_behavioral_cognitive_eng(frame, prev_pos_1, detector, predictor, m_start, m_end, prev_mouth_img_1, i1, margin, emotional_engagement)
 
                 prev_pos_1 = result_behavioral_cognitive[2]
                 prev_mouth_img_1 = result_behavioral_cognitive[3]
                 i1 = result_behavioral_cognitive[4]
 
                 print("------------------------------")
-                print("Emotional engagement:", result_emotional)
+                print("Emotional engagement:", emotional_engagement)
                 print("Behavioral engagement:", result_behavioral_cognitive[0])
                 print("Cognitive engagement:", result_behavioral_cognitive[1])
                 print("------------------------------")
@@ -264,9 +228,9 @@ class MSERS:
                 print(err)
                 continue
         
-        return {"emotional": result_emotional, "behavioral":result_behavioral_cognitive[0], "cognitive": result_behavioral_cognitive[1]}
+        return {"emotional": emotional_engagement, "behavioral":result_behavioral_cognitive[0], "cognitive": result_behavioral_cognitive[1]}
     
-    def detect_overall_eng_per_frame(self, frame, prev_pos_1, prev_mouth_img_1):
+    def detect_overall_eng_per_frame(self, frame, prev_pos_1, prev_mouth_img_1, emotional_engagement):
 
         #SPEAK VARIABLES
         # initialize dlib's face detector (HOG-based) and then create
@@ -277,8 +241,7 @@ class MSERS:
         # grab the indices of the facial landmarks for mouth
         m_start, m_end = face_utils.FACIAL_LANDMARKS_IDXS['mouth']
 
-        result_emotional = self.detect_emotional_eng(frame)
-        result_behavioral_cognitive = self.detect_behavioral_cognitive_eng(frame, prev_pos_1, detector, predictor, m_start, m_end, prev_mouth_img_1, self.margin, result_emotional)
+        result_behavioral_cognitive = self.detect_behavioral_cognitive_eng(frame, prev_pos_1, detector, predictor, m_start, m_end, prev_mouth_img_1, self.margin, emotional_engagement)
 
         # print("------------------------------")
         # print("Emotional engagement:", result_emotional)
@@ -286,7 +249,7 @@ class MSERS:
         # print("Cognitive engagement:", result_behavioral_cognitive[1])
         # print("------------------------------")
         
-        return {"emotional": round(result_emotional,2),
+        return {"emotional": round(emotional_engagement,2),
                 "behavioral":round(result_behavioral_cognitive[0],2), 
                 "cognitive": round(result_behavioral_cognitive[1],2),}
 

@@ -3,7 +3,9 @@ __pycache__/
 dataset/train/
 dataset/valid/
 dataset/test/
-weights/
-res10_300x300_ssd_iter_140000.caffemodel
-pretrained_ckpt
 node_modules
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
