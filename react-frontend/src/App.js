@@ -22,10 +22,10 @@ function App() {
   document.title = "MSERS";
   document.body.style = "background: #FFFFFF;";
 
-  useEffect(() => {
-        const favicon = document.getElementById('favicon');
-        favicon.setAttribute('href', icon);
-  }, []);
+  // useEffect(() => {
+  //       const favicon = document.getElementById('favicon');
+  //       favicon.setAttribute('href', icon);
+  // }, []);
 
   return (
     <div className="App">
