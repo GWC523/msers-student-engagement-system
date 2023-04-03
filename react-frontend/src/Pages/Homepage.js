@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Components/Navbar'
 import { useNavigate } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
@@ -11,9 +11,11 @@ import LandingImage from "../Assets/Images/homepage_image.png"
 import { ValidateForm } from '../Helper/Validation/FormValidation'
 import InputError from '../Components/InputError'
 import { createStudent } from '../Helper/ApiCalls/PersonalDetailsApi'
+import { getCameraPermisions } from '../Helper/Utils/Common';
 
 
 function Homepage() {
+  const [isClicked, setIsClicked] = useState(false)
   const [proceed, setProceed] = useState(false);
   const [personalDetails, setPersonalDetails] = useState({
     name: "",
@@ -42,7 +44,8 @@ function Homepage() {
   }
 
   async function submit() {
-    if(ValidateForm(personalDetails, setIsError) === true){
+    if(ValidateForm(personalDetails, setIsError) === true && !isClicked){
+        setIsClicked(true);
         const response = await createStudent(personalDetails);
         console.log(response)
         if(response.data.status == 200) {
@@ -58,6 +61,12 @@ function Homepage() {
         toast.error("Please fill-up all inputs to proceed.")
     }
   }
+
+  useEffect(() => {
+    if(getCameraPermisions() == true) {
+        navigate("/detector");
+    }
+  },[])
 
 
   return (

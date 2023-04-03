@@ -14,3 +14,9 @@ export const getStudentId = () => {
   if (studentStr) return JSON.parse(studentStr);
   else return null;
 };
+
+export const getCameraPermisions = () => {
+  const grantedStr = localStorage.getItem("camera_granted");
+  if (grantedStr) return JSON.parse(grantedStr);
+  else return null;
+};

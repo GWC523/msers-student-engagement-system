@@ -86,14 +86,6 @@ function Detector() {
     photo.width = width;
     photo.height = height;
 
-       navigator.permissions.query({ name: "camera" }).then(res => {
-          if(res.state == "granted"){
-            setIsGranted(true)
-          } else {
-            setIsGranted(false)
-          }
-      });
-
     return setInterval(() => {
       ctx.drawImage(video, 0, 0, width, height);
     }, 200);
@@ -177,6 +169,26 @@ function Detector() {
     }, 5000);
   },[photoRef])
 
+  useEffect(() => {
+     const intervalId2 = setInterval( async () => {
+        navigator.permissions.query({ name: "camera" }).then(res => {
+          if(res.state == "granted"){
+            localStorage.setItem("camera_granted", true);
+            setIsGranted(true);
+            navigate("/");
+          } else {
+            setIsGranted(false)
+          }
+      });
+
+      if(isGranted) {
+         return () => {
+          clearInterval(intervalId2);
+        }
+      }
+    }, 1000)
+  },[])
+
 
   return (
     <div className='page'>
@@ -209,11 +221,10 @@ function Detector() {
             <span className='loader__title'>System Not Running</span>
             </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>The system is not currently detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. Once permission is granted, click continue. </p>
+            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. Please wait for a few seconds for it to take effect.  </p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
-      <button className='continue__btn' onClick={() => navigate("/detector")}>Continue</button>
           </>
         )}   
     </div>

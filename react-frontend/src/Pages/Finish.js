@@ -17,6 +17,7 @@ function Finish() {
   const myRef = useRef(null)
   let navigate = useNavigate();
   const [page, setPage] = useState(1);
+  const [isClicked, setIsClicked] = useState(false);
   const [info, setInfo] = useState({
     environment: "",
     lighting_condition: "",
@@ -100,8 +101,6 @@ function Finish() {
   }
 
   const handleAnswerChange = (e, index, name) => {
-    console.log("here")
-    console.log(e, index);
 
     if(e?.target) {
         const { name, value} = e.target;
@@ -181,11 +180,15 @@ async function submitSelfReportInfo() {
 
 function submit() {
 
-    submitSelfReportInfo();
+    if(!isClicked) {
+      setIsClicked(true);
+      submitSelfReportInfo();
 
-    answers.map((data) => {
-      submitSelfReportEngagement(data)
-    })
+      answers.map((data) => {
+        submitSelfReportEngagement(data)
+      })
+
+    }
   }
 
   return (
