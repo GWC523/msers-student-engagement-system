@@ -63,7 +63,8 @@ function Homepage() {
   }
 
   useEffect(() => {
-    if(getParticipantId() != "") {
+    if(getParticipantId() != null) {
+        console.log(getParticipantId())
         navigate("/detector");
     }
   },[])
