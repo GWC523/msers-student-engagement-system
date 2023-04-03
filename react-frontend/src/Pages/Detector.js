@@ -173,9 +173,11 @@ function Detector() {
      const intervalId2 = setInterval( async () => {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
-            localStorage.setItem("camera_granted", true);
+            localStorage.setItem("camera_granted", "true");
             setIsGranted(true);
-          } 
+          } else {
+            localStorage.setItem("camera_granted", "false");
+          }
       });
 
       if(getCameraPermisions() == true) {

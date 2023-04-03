@@ -63,7 +63,7 @@ function Homepage() {
   }
 
   useEffect(() => {
-    if(getCameraPermisions() == true) {
+    if(getCameraPermisions() == "true") {
         navigate("/detector");
     }
   },[])
