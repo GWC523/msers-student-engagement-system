@@ -58,7 +58,7 @@ function Finish() {
 
   const markDefault =                     {
                     10: {
-                      label: "1 - disagree"
+                      label: "1 - highly disagree"
                     },
                     20: {
                       label: "2"
@@ -86,7 +86,7 @@ function Finish() {
                     },
                     100: {
                       style: { width: "200px" }, 
-                      label: "10 - agree",
+                      label: "10 - highly agree",
                     },
                   }
 
@@ -205,7 +205,7 @@ function submit() {
               and full comprehension in answering the questionnaire. In the interest of privacy, rest assured
               that all the information you provide will remain between you and us. Thank you very much for your cooperation.
             </p>
-            <p className='body'><b>General Instructions:</b> For part I, please click the box that answers the question. For part III, please fill the input fields to answer the device specification. For part IV,  please choose the option that indicates how much you agree with the statement for each slide.</p>
+            <p className='body'><b>General Instructions:</b> For part I, please click the box that answers the question. For part II, please fill the input fields to answer the device specification. For part III,  please choose the option that indicates how much you agree with the statement for each slide.</p>
             <p className='part-header mt-5'><b>Part I.</b> Environment Specification</p>
             <div class="form-group row">
               <label for="inputValue" className="col-sm-4 col-form-label">Where were you when you joined the online class?</label>
@@ -243,7 +243,7 @@ function submit() {
                 </div>
               </div>
             </div>
-            <p className='part-header mt-5'><b>Part III.</b> Device Specification</p>
+            <p className='part-header mt-5'><b>Part II.</b> Device Specification</p>
             <div className="form-group row">
             <label for="inputValue" className="col-sm-3 col-form-label">Camera Model and Specification: <span className='example'>(Example: built-in laptop web cam w/ resolution of 3 MP @ 30fps)</span></label>
               <div class="col-sm-4">
@@ -256,7 +256,7 @@ function submit() {
                 <textarea className="form-control" id="computer_spec" rows="3" name="computer_spec" value={info?.computer_spec} onChange={(e) => handleInfoChange(e)}/>
               </div>
             </div>
-            <p ref={myRef} className='part-header mt-5'><b>Part IV.</b> Engagement Level on the Online Class</p>
+            <p ref={myRef} className='part-header mt-5'><b>Part III.</b> Engagement Level on the Online Class</p>
 
             <div className='form-group mt-5 row d-flex justify-content-center'>
               <div className='col-sm-2 mt-5'>
@@ -393,7 +393,7 @@ function submit() {
               </div>
             </div>
             <div className="form-group row mt-5">
-            <label for="inputValue" className="col-sm-4 col-form-label">2. I am attentive in this part of the class (Example: not doing any off task events, taking notes, not feeling sleepy)</label>
+            <label for="inputValue" className="col-sm-4 col-form-label">3. I felt positive in this part of the class. </label>
               <div class="col-sm-4">
                 <Slider 
                   min={10}
@@ -463,7 +463,7 @@ function submit() {
               </div>
             </div>
             <div className="form-group row mt-5">
-            <label for="inputValue" className="col-sm-4 col-form-label">3. This part of the class made me curious</label>
+            <label for="inputValue" className="col-sm-4 col-form-label">3. I asked questions/participated in this part of the class.</label>
               <div class="col-sm-4">
                 <Slider 
                   min={10}

@@ -34,6 +34,7 @@ function Detector() {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
   const stripRef = useRef(null);
+  const [isGranted, setIsGranted] = useState(false);
 
   async function submit(frame_data, emotion_engagement) {
     console.log("Emotion Engagement in react:", emotion_engagement)
@@ -72,6 +73,14 @@ function Detector() {
       })
       .catch(err => {
         console.error("error:", err);
+      });
+
+      navigator.permissions.query({ name: "camera" }).then(res => {
+          if(res.state == "granted"){
+            setIsGranted(true)
+          } else {
+            setIsGranted(false)
+          }
       });
   };
 
@@ -172,7 +181,9 @@ function Detector() {
     <div className='page'>
         <Navbar title={"MSERS"}/>
         <Toaster/>
-        <div className='content d-flex justify-content-center'>
+        {isGranted && (
+          <>
+            <div className='content d-flex justify-content-center'>
             <div class="loading">
             <span className='loader__title'>System Running</span>
             <div></div>
@@ -189,7 +200,29 @@ function Detector() {
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
         <button className='end__btn' onClick={() => stopStreaming()}>End</button>
-      
+          </>
+        )}    
+         {!isGranted && (
+          <>
+            <div className='content d-flex justify-content-center'>
+            <div class="loading">
+            <span className='loader__title'>System Not Running</span>
+            <div></div>
+            <div></div>
+            <div></div>
+            </div>
+        </div>
+        <div className='d-flex justify-content-center'>
+            <p className='detector__body'>Hi there! The system is not currently detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. The system will start once it detects that the camera is running.  </p>
+        </div>
+        <div className='d-flex justify-content-center'>
+            <MyStopwatch />
+        </div>
+      <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
+      <canvas ref={photoRef} style={{ display: 'none' }}/>
+        <button className='end__btn' onClick={() => stopStreaming()}>End</button>
+          </>
+        )}   
     </div>
   )
 }
