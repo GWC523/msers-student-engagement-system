@@ -169,9 +169,10 @@ function Detector() {
     }, 5000);
   },[photoRef])
 
-  function refreshback() {
-      localStorage.setItem("camera_granted", "true");
-      navigate("/")
+  async function refreshback() {
+      localStorage.setItem("camera_granted", "true").then(() => {
+         navigate("/")
+      })
   }
 
   useEffect(() => {
