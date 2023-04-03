@@ -169,18 +169,11 @@ function Detector() {
     }, 5000);
   },[photoRef])
 
-  async function refreshback() {
-      localStorage.setItem("camera_granted", "true").then(() => {
-         navigate("/")
-      })
-  }
-
   useEffect(() => {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
             setIsGranted(true);
           } else {
-            localStorage.setItem("camera_granted", "false");
             setIsGranted(false);
           }
       });
@@ -222,7 +215,7 @@ function Detector() {
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
-       <button className='continue__btn' onClick={() => refreshback()}>Continue</button>
+       <button className='continue__btn' onClick={() => window.location.reload()}>Continue</button>
           </>
         )}   
     </div>
