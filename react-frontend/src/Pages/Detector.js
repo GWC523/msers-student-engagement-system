@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStopwatch } from 'react-timer-hook'
 import Webcam from "react-webcam";
 import './Detector.css'
-import { getParticipantId, getStudentId } from '../Helper/Utils/Common'
+import { getCameraPermisions, getParticipantId, getStudentId } from '../Helper/Utils/Common'
 import { createEngagement } from '../Helper/ApiCalls/DetectorApi';
 import toast, { Toaster } from 'react-hot-toast';
 import * as faceapi from 'face-api.js';
@@ -175,13 +175,10 @@ function Detector() {
           if(res.state == "granted"){
             localStorage.setItem("camera_granted", true);
             setIsGranted(true);
-            navigate("/");
-          } else {
-            setIsGranted(false)
-          }
+          } 
       });
 
-      if(isGranted) {
+      if(getCameraPermisions() == true) {
          return () => {
           clearInterval(intervalId2);
         }
@@ -221,10 +218,11 @@ function Detector() {
             <span className='loader__title'>System Not Running</span>
             </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. Please wait for a few seconds for it to take effect.  </p>
+            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page, click continue once you have allowed camera access. </p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
+       <button className='continue__btn' onClick={() => navigate("/")}>Continue</button>
           </>
         )}   
     </div>
