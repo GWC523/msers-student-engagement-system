@@ -74,14 +74,6 @@ function Detector() {
       .catch(err => {
         console.error("error:", err);
       });
-
-      navigator.permissions.query({ name: "camera" }).then(res => {
-          if(res.state == "granted"){
-            setIsGranted(true)
-          } else {
-            setIsGranted(false)
-          }
-      });
   };
 
   const paintToCanvas = () => {
@@ -94,9 +86,18 @@ function Detector() {
     photo.width = width;
     photo.height = height;
 
+       navigator.permissions.query({ name: "camera" }).then(res => {
+          if(res.state == "granted"){
+            setIsGranted(true)
+          } else {
+            setIsGranted(false)
+          }
+      });
+
     return setInterval(() => {
       ctx.drawImage(video, 0, 0, width, height);
     }, 200);
+    
   };
 
   const takePhoto = (emotion_engagement) => {
@@ -205,22 +206,13 @@ function Detector() {
          {!isGranted && (
           <>
             <div className='content d-flex justify-content-center'>
-            <div class="loading">
             <span className='loader__title'>System Not Running</span>
-            <div></div>
-            <div></div>
-            <div></div>
             </div>
-        </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>Hi there! The system is not currently detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. The system will start once it detects that the camera is running.  </p>
-        </div>
-        <div className='d-flex justify-content-center'>
-            <MyStopwatch />
+            <p className='detector__body'>The system is not currently detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page. Please wait for at least 5 seconds for it to take effect, the system will start once it detects that the camera is running.  </p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
-        <button className='end__btn' onClick={() => stopStreaming()}>End</button>
           </>
         )}   
     </div>
