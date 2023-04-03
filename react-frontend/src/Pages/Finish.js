@@ -169,6 +169,7 @@ async function submitSelfReportInfo() {
     });
 
     if(response.data.status == 200) {
+      localStorage.clear();
       toast.success("Successfully saved participant info!")
       navigate("/thank-you")
     } else {

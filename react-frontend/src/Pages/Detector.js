@@ -170,6 +170,7 @@ function Detector() {
   },[photoRef])
 
   useEffect(() => {
+      const intervalId = setInterval( async () => {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
             setIsGranted(true);
@@ -177,6 +178,13 @@ function Detector() {
             setIsGranted(false);
           }
       });
+    }, 1000)
+
+    if(isGranted) {
+      return () => {
+          clearInterval(intervalId);
+        }
+    }
   },[])
 
 
@@ -211,7 +219,7 @@ function Detector() {
             <span className='loader__title'>System Not Running</span>
             </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Refresh page once allowed and go back to https://msers.site to continue </p>
+            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Refresh page once allowed and go back to https://msers.site to continue, it will redirect you back to this page.</p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
