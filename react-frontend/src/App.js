@@ -14,7 +14,6 @@ import Detector from './Pages/Detector';
 import Finish from './Pages/Finish';
 import ThankYou from './Pages/ThankYou';
 import icon from './Assets/Images/favicon.ico';
-import Check from './Pages/Check';
 
 
 
@@ -34,7 +33,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/detector" element={<Detector/>}/>
-          <Route path="/check" element={<Check/>}/>
           <Route path="/survey" element={<Finish/>}/>
           <Route path="/thank-you" element={<ThankYou/>}/>
         </Routes>
