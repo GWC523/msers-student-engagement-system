@@ -173,6 +173,7 @@ function Detector() {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
             setIsGranted(true);
+            navigate("/detector")
           } else {
             setIsGranted(false);
           }
@@ -183,28 +184,7 @@ function Detector() {
   return (
     <div className='page'>
         <Navbar title={"MSERS"}/>
-        <Toaster/>
-        {isGranted && (
-          <>
-            <div className='content d-flex justify-content-center'>
-            <div class="loading">
-            <span className='loader__title'>System Running</span>
-            <div></div>
-            <div></div>
-            <div></div>
-            </div>
-        </div>
-        <div className='d-flex justify-content-center'>
-            <p className='detector__body'>Hi there! The system is currently detecting your student engagement levels. Please do not close this tab while class is still ongoing. Click the end button once the class is finished. You will be redirected to a new page to fill-up the self-reported in-class student engagement survey. This data will be compared to the results computed by using the system. </p>
-        </div>
-        <div className='d-flex justify-content-center'>
-            <MyStopwatch />
-        </div>
-      <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
-      <canvas ref={photoRef} style={{ display: 'none' }}/>
-        <button className='end__btn' onClick={() => stopStreaming()}>End</button>
-          </>
-        )}    
+        <Toaster/>  
          {!isGranted && (
           <>
             <div className='content d-flex justify-content-center'>
@@ -215,7 +195,7 @@ function Detector() {
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
-       <button className='continue__btn' onClick={() => window.location.reload()}>Continue</button>
+       <button className='continue__btn' onClick={() => navigate("/detector")}>Continue</button>
           </>
         )}   
     </div>

@@ -51,7 +51,7 @@ function Homepage() {
         if(response.data.status == 200) {
             localStorage.setItem("participant_id", JSON.stringify(response.data.data?.id));
             localStorage.setItem("student_id", JSON.stringify(response.data.data?.student_id));
-            navigate("/detector");
+            navigate("/check");
         } else {
             console.log("Error")
             toast.error("An unexpected error occurred. Please try again.")
@@ -64,7 +64,7 @@ function Homepage() {
 
   useEffect(() => {
     if(getCameraPermisions() == "true") {
-        navigate("/detector");
+        navigate("/check");
     }
   },[])
 
