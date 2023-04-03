@@ -170,7 +170,7 @@ function Detector() {
   },[photoRef])
 
   useEffect(() => {
-     const intervalId2 = setInterval( async () => {
+
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
             localStorage.setItem("camera_granted", "true");
@@ -180,12 +180,6 @@ function Detector() {
           }
       });
 
-      if(getCameraPermisions() == true) {
-         return () => {
-          clearInterval(intervalId2);
-        }
-      }
-    }, 1000)
   },[])
 
 
