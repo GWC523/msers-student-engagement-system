@@ -211,11 +211,10 @@ function Detector() {
             <span className='loader__title'>System Not Running</span>
             </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Please do not refresh this page, click continue once you have allowed camera access. </p>
+            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Refresh page once allowed and go back to https://msers.site to continue </p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
-       <button className='continue__btn' onClick={() => window.location.reload()}>Continue</button>
           </>
         )}   
     </div>

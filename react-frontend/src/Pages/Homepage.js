@@ -11,7 +11,7 @@ import LandingImage from "../Assets/Images/homepage_image.png"
 import { ValidateForm } from '../Helper/Validation/FormValidation'
 import InputError from '../Components/InputError'
 import { createStudent } from '../Helper/ApiCalls/PersonalDetailsApi'
-import { getCameraPermisions } from '../Helper/Utils/Common';
+import { getCameraPermisions, getParticipantId } from '../Helper/Utils/Common';
 
 
 function Homepage() {
@@ -61,6 +61,12 @@ function Homepage() {
         toast.error("Please fill-up all inputs to proceed.")
     }
   }
+
+  useEffect(() => {
+    if(getParticipantId() != "") {
+        navigate("/detector");
+    }
+  },[])
 
 
   return (
