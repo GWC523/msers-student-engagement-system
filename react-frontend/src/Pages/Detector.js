@@ -203,7 +203,7 @@ function Detector() {
             </div>
         </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>Hi there! The system is currently detecting your student engagement levels. Please do not close this tab while class is still ongoing. Click the end button once the class is finished. You will be redirected to a new page to fill-up the self-reported in-class student engagement survey. This data will be compared to the results computed by using the system. </p>
+            <p className='detector__body'>Hi there! The system is currently detecting your student engagement levels. Please do not close this tab while class is still ongoing. Click the end button once the class is finished. You will be redirected to a new page to fill-up the self-reported in-class student engagement survey. This data will be compared to the results computed by using the system. (Notice: please make sure the camera light is on to ensure that the camera is being used.) </p>
         </div>
         <div className='d-flex justify-content-center'>
             <MyStopwatch />
@@ -219,7 +219,7 @@ function Detector() {
             <span className='loader__title'>System Not Running</span>
             </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run. Refresh page once allowed and go back to https://msers.site to continue, it will redirect you back to this page.</p>
+            <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run.</p>
         </div>
       <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
       <canvas ref={photoRef} style={{ display: 'none' }}/>
