@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-xoo=m%@4671utarel(&+qtal&0g%@bilz#vd=xo0jndhi9pkdk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['35.93.138.141']
+ALLOWED_HOSTS = ['35.93.138.141', 'www.msers.site', 'msers.site', '127.0.0.1']
 
 
 # Application definition
@@ -93,6 +93,10 @@ DATABASES = {
         'PASSWORD': 'Windarcher0511', #
     }
 }
+
+REACT_ROUTES = [
+    'detector'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
