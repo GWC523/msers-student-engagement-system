@@ -8,8 +8,6 @@ import { getCameraPermisions, getParticipantId, getStudentId } from '../Helper/U
 import { createEngagement } from '../Helper/ApiCalls/DetectorApi';
 import toast, { Toaster } from 'react-hot-toast';
 import * as faceapi from 'face-api.js';
-import Webcam from 'react-webcam';
-
 
 
 
@@ -37,7 +35,6 @@ function Detector() {
   const photoRef = useRef(null);
   const stripRef = useRef(null);
   const [isGranted, setIsGranted] = useState(false);
-  const webcamRef = useRef(null);
 
   async function submit(frame_data, emotion_engagement) {
     console.log("Emotion Engagement in react:", emotion_engagement)
@@ -60,14 +57,59 @@ function Detector() {
      faceapi.nets.faceLandmark68Net.loadFromUri('/static/models'),
      faceapi.nets.faceRecognitionNet.loadFromUri('/static/models'),
      faceapi.nets.faceExpressionNet.loadFromUri('/static/models'),
-   ])
-  }, [webcamRef])
+   ]).then(() => {
+      getVideo();
+   })
+  }, [videoRef])
 
-  const capture = (emotion_engagement) => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    submit(imageSrc.toDataURL("image/jpeg"), emotion_engagement)
+  const getVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: { width: 300 } })
+      .then(stream => {
+        let video = videoRef.current;
+        video.srcObject = stream;
+        video.play();
+        setStream(stream)
+      })
+      .catch(err => {
+        console.error("error:", err);
+      });
   };
 
+  const paintToCanvas = () => {
+    let video = videoRef.current;
+    let photo = photoRef.current;
+    let ctx = photo.getContext("2d");
+
+    const width = 320;
+    const height = 240;
+    photo.width = width;
+    photo.height = height;
+
+    return setInterval(() => {
+      ctx.drawImage(video, 0, 0, width, height);
+    }, 200);
+    
+  };
+
+  const takePhoto = (emotion_engagement) => {
+    let photo = photoRef.current;
+    let strip = stripRef.current;
+
+    console.warn(strip);
+
+    const data = photo.toDataURL("image/jpeg");
+    submit(photo.toDataURL("image/jpeg"), emotion_engagement)
+  };
+
+  const stopStreaming = () => {
+    stream.getTracks().forEach((track) => {
+      track.stop();
+    });
+    clearInterval();
+
+    navigate("/survey")
+  }
 
   const calculate_emotional = (emotion, emotion_value) => {
     if(emotion == "happy") {
@@ -114,9 +156,9 @@ function Detector() {
             }
             console.log(emotion, calculate_emotional(emotion, maxVal))
 
-            capture(calculate_emotional(emotion, maxVal))
+            takePhoto(calculate_emotional(emotion, maxVal))
           } else {
-            capture(calculate_emotional('neutral', 0))
+            takePhoto(calculate_emotional('neutral', 0))
           }
         }, 5000)
 
@@ -166,11 +208,8 @@ function Detector() {
         <div className='d-flex justify-content-center'>
             <MyStopwatch />
         </div>
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          style={{ display: 'none' }}
-        />
+      <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
+      <canvas ref={photoRef} style={{ display: 'none' }}/>
         <button className='end__btn' onClick={() => stopStreaming()}>End</button>
           </>
         )}    
