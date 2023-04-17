@@ -164,7 +164,7 @@ function Detector() {
         <Toaster/>
         {isGranted && (
           <>
-            <div className='content d-flex justify-content-center'>
+          <div className='content d-flex justify-content-center'>
             <div class="loading">
             <span className='loader__title'>System Running</span>
             <div></div>
@@ -173,27 +173,25 @@ function Detector() {
             </div>
         </div>
         <div className='d-flex justify-content-center'>
-            <p className='detector__body'>Hi there! The system is currently detecting your student engagement levels. Please do not close this tab while class is still ongoing. Click the end button once the class is finished. You will be redirected to a new page to fill-up the self-reported in-class student engagement survey. This data will be compared to the results computed by using the system. (Notice: please make sure the camera light is on to ensure that the camera is being used.) </p>
+            <p className='detector__body'>Hi there! The system is currently detecting your student engagement levels. Please do not close or hide this tab while class is still ongoing. Click the end button once the class is finished. You will be redirected to a new page to fill-up the self-reported in-class student engagement survey. This data will be compared to the results computed by using the system. (Notice: please make sure the camera light is on to ensure that the camera is being used.) </p>
         </div>
         <div className='d-flex justify-content-center'>
             <MyStopwatch />
         </div>
         <div className='d-flex justify-content-center'>
           <button className='end__btn' onClick={() => stopStreaming()}>End</button>
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat='image/jpeg'
+                  className='webcam'
+                  width={780}
+                  height={400}
+                  videoConstraints={videoConstraints}
+                /> 
         </div>
           </>
         )}   
-        <div className='row'>
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat='image/jpeg'
-          className='webcam'
-          width={780}
-          height={400}
-          videoConstraints={videoConstraints}
-        /> 
-        </div>
          {!isGranted && (
           <>
             <div className='content d-flex justify-content-center'>
