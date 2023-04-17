@@ -7,6 +7,7 @@ import './Detector.css'
 import { getCameraPermisions, getParticipantId, getStudentId } from '../Helper/Utils/Common'
 import { createEngagement } from '../Helper/ApiCalls/DetectorApi';
 import toast, { Toaster } from 'react-hot-toast';
+import {disableBodyScroll, clearAllBodyScrollLocks} from "body-scroll-lock"
 import * as faceapi from 'face-api.js';
 
 
@@ -31,7 +32,7 @@ function MyStopwatch() {
 
 function Detector() {
   let navigate = useNavigate();
-  const videoRef = useRef(null);
+  const pageRef = useRef(null);
   const [isGranted, setIsGranted] = useState(false);
   const webcamRef = useRef(null);
 
@@ -104,7 +105,6 @@ function Detector() {
         // Set canvas dimensions
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-
             const detections = await faceapi.detectAllFaces 
               (video, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks()
@@ -134,6 +134,7 @@ function Detector() {
   },[webcamRef])
 
   useEffect(() => {
+      disableBodyScroll(pageRef.current)
       const intervalId = setInterval( async () => {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
@@ -147,13 +148,14 @@ function Detector() {
     if(isGranted) {
       return () => {
           clearInterval(intervalId);
+          clearAllBodyScrollLocks()
         }
     }
   },[])
 
 
   return (
-    <div className='page'>
+    <div className='page' ref={pageRef}>
         <Navbar title={"MSERS"}/>
         <Toaster/>
         {isGranted && (
@@ -172,14 +174,19 @@ function Detector() {
         <div className='d-flex justify-content-center'>
             <MyStopwatch />
         </div>
+        <div className='d-flex justify-content-center'>
+          <button className='end__btn' onClick={() => stopStreaming()}>End</button>
+        </div>
+          </>
+        )}   
+        <div className='row'>
         <Webcam
           audio={false}
           ref={webcamRef}
           screenshotFormat='image/jpeg'
-        />
-        <button className='end__btn' onClick={() => stopStreaming()}>End</button>
-          </>
-        )}    
+          className='webcam'
+        /> 
+        </div>
          {!isGranted && (
           <>
             <div className='content d-flex justify-content-center'>
