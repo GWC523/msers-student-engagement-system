@@ -106,31 +106,34 @@ function Detector() {
   useEffect(() => {
     setTimeout(function () {
        const intervalId = setInterval( async () => {
-        const video = webcamRef.current.video;
-        const canvas = faceapi.createCanvasFromMedia(video);
-        // Set canvas dimensions
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-            const detections = await faceapi.detectAllFaces 
-              (video, new faceapi.TinyFaceDetectorOptions())
-                .withFaceLandmarks()
-                .withFaceExpressions();
+        if(isGranted) {
+            const video = webcamRef.current.video;
+            const canvas = faceapi.createCanvasFromMedia(video);
+            // Set canvas dimensions
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+                const detections = await faceapi.detectAllFaces 
+                  (video, new faceapi.TinyFaceDetectorOptions())
+                    .withFaceLandmarks()
+                    .withFaceExpressions();
 
-          if(detections[0]?.expressions) {
-            let maxVal = -Infinity;
-            let emotion = '';
-            for (const prop in detections[0].expressions) {
-              if (detections[0].expressions[prop] > maxVal) {
-                maxVal = detections[0].expressions[prop];
-                emotion = prop;
+              if(detections[0]?.expressions) {
+                let maxVal = -Infinity;
+                let emotion = '';
+                for (const prop in detections[0].expressions) {
+                  if (detections[0].expressions[prop] > maxVal) {
+                    maxVal = detections[0].expressions[prop];
+                    emotion = prop;
+                  }
+                }
+                
+                console.log(emotion, calculate_emotional(emotion, maxVal))
+
+                capture(calculate_emotional(emotion, maxVal))
+              } else {
+                capture(calculate_emotional('neutral', 0))
               }
-            }
-            console.log(emotion, calculate_emotional(emotion, maxVal))
-
-            capture(calculate_emotional(emotion, maxVal))
-          } else {
-            capture(calculate_emotional('neutral', 0))
-          }
+        }
         }, 5000)
 
         return () => {
