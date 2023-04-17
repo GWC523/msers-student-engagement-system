@@ -33,7 +33,7 @@ function MyStopwatch() {
 function Detector() {
   let navigate = useNavigate();
   const pageRef = useRef(null);
-  const [isGranted, setIsGranted] = useState(false);
+  const [isGranted, setIsGranted] = useState(true);
   const webcamRef = useRef(null);
 
   const videoConstraints = {
@@ -199,6 +199,15 @@ function Detector() {
             </div>
         <div className='d-flex justify-content-center'>
             <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run.</p>
+                <Webcam
+                  audio={false}
+                  ref={webcamRef}
+                  screenshotFormat='image/jpeg'
+                  className='webcam'
+                  width={780}
+                  height={400}
+                  videoConstraints={videoConstraints}
+                /> 
         </div>
           </>
         )}   
