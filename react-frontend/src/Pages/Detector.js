@@ -11,6 +11,7 @@ import * as faceapi from 'face-api.js';
 
 
 
+
 function MyStopwatch() {
   const {
     seconds,
@@ -30,11 +31,9 @@ function MyStopwatch() {
 
 function Detector() {
   let navigate = useNavigate();
-  const [stream, setStream] = useState()
   const videoRef = useRef(null);
-  const photoRef = useRef(null);
-  const stripRef = useRef(null);
   const [isGranted, setIsGranted] = useState(false);
+  const webcamRef = useRef(null);
 
   async function submit(frame_data, emotion_engagement) {
     console.log("Emotion Engagement in react:", emotion_engagement)
@@ -57,59 +56,21 @@ function Detector() {
      faceapi.nets.faceLandmark68Net.loadFromUri('/static/models'),
      faceapi.nets.faceRecognitionNet.loadFromUri('/static/models'),
      faceapi.nets.faceExpressionNet.loadFromUri('/static/models'),
-   ]).then(() => {
-      getVideo();
-   })
-  }, [videoRef])
+   ])
+  }, [])
 
-  const getVideo = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: { width: 300 } })
-      .then(stream => {
-        let video = videoRef.current;
-        video.srcObject = stream;
-        video.play();
-        setStream(stream)
-      })
-      .catch(err => {
-        console.error("error:", err);
-      });
-  };
-
-  const paintToCanvas = () => {
-    let video = videoRef.current;
-    let photo = photoRef.current;
-    let ctx = photo.getContext("2d");
-
-    const width = 320;
-    const height = 240;
-    photo.width = width;
-    photo.height = height;
-
-    return setInterval(() => {
-      ctx.drawImage(video, 0, 0, width, height);
-    }, 200);
-    
-  };
-
-  const takePhoto = (emotion_engagement) => {
-    let photo = photoRef.current;
-    let strip = stripRef.current;
-
-    console.warn(strip);
-
-    const data = photo.toDataURL("image/jpeg");
-    submit(photo.toDataURL("image/jpeg"), emotion_engagement)
-  };
 
   const stopStreaming = () => {
-    stream.getTracks().forEach((track) => {
-      track.stop();
-    });
     clearInterval();
 
     navigate("/survey")
   }
+
+  const capture = (emotion_engagement) => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    submit(imageSrc, emotion_engagement)
+  };
+
 
   const calculate_emotional = (emotion, emotion_value) => {
     if(emotion == "happy") {
@@ -136,10 +97,14 @@ function Detector() {
   }
 
   useEffect(() => {
-    paintToCanvas()
     setTimeout(function () {
        const intervalId = setInterval( async () => {
-        let video = videoRef.current;
+        const video = webcamRef.current.video;
+        const canvas = faceapi.createCanvasFromMedia(video);
+        // Set canvas dimensions
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
             const detections = await faceapi.detectAllFaces 
               (video, new faceapi.TinyFaceDetectorOptions())
                 .withFaceLandmarks()
@@ -156,18 +121,17 @@ function Detector() {
             }
             console.log(emotion, calculate_emotional(emotion, maxVal))
 
-            takePhoto(calculate_emotional(emotion, maxVal))
+            capture(calculate_emotional(emotion, maxVal))
           } else {
-            takePhoto(calculate_emotional('neutral', 0))
+            capture(calculate_emotional('neutral', 0))
           }
         }, 5000)
 
         return () => {
           clearInterval(intervalId);
-          navigate("/survey")
         }
     }, 5000);
-  },[photoRef])
+  },[webcamRef])
 
   useEffect(() => {
       const intervalId = setInterval( async () => {
@@ -208,8 +172,11 @@ function Detector() {
         <div className='d-flex justify-content-center'>
             <MyStopwatch />
         </div>
-      <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
-      <canvas ref={photoRef} style={{ display: 'none' }}/>
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat='image/jpeg'
+        />
         <button className='end__btn' onClick={() => stopStreaming()}>End</button>
           </>
         )}    
@@ -221,8 +188,6 @@ function Detector() {
         <div className='d-flex justify-content-center'>
             <p className='detector__body'>The system is currently not detecting your student engagement levels. Please accept the permission to use your camera so that the detector can run.</p>
         </div>
-      <video onCanPlay={() => paintToCanvas()} ref={videoRef} style={{ display: 'none' }}/>
-      <canvas ref={photoRef} style={{ display: 'none' }}/>
           </>
         )}   
     </div>
