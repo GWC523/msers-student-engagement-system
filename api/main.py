@@ -164,7 +164,7 @@ class MSERS:
         print(gesture_data)
         print(speaker_data)
         behavioral_eng = ((gaze_data * 0.3) + ((emotional_data/100) * 0.33) + (gesture_data[1] * 0.12) + (speaker_data[1] * 0.25)) * 100
-        cognitive_eng = ((gesture_data[1] * 0.3) + (speaker_data[1] * 0.7)) * 100
+        cognitive_eng = ((gesture_data[1] * 0.3) + (speaker_data[1] * 0.5) + (emotional_data/100 * 0.2)) * 100
         # print("----------------------------")
         # print("Gaze data:", gaze_data)
         # print("Emotional data:", emotional_data)

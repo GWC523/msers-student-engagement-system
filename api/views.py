@@ -226,7 +226,7 @@ def DetermineEngagement(request):
                                      student_id=student_id, 
                                      participant_id=participant_id,
                                      frame_data=converted_frame_data,
-                                     emotional_engagement=emotional_engagement,
+                                     emotional_engagement=engagement_result["emotional"],
                                      behavioral_engagement=engagement_result["behavioral"],
                                      cognitive_engagement=engagement_result["cognitive"])
     frame.save()
