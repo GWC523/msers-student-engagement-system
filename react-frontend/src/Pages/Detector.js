@@ -36,6 +36,12 @@ function Detector() {
   const [isGranted, setIsGranted] = useState(false);
   const webcamRef = useRef(null);
 
+  const videoConstraints = {
+  width: 780,
+  height: 400,
+  facingMode: "user"
+};
+
   async function submit(frame_data, emotion_engagement) {
     console.log("Emotion Engagement in react:", emotion_engagement)
     const response = await createEngagement({
@@ -134,7 +140,6 @@ function Detector() {
   },[webcamRef])
 
   useEffect(() => {
-      disableBodyScroll(pageRef.current)
       const intervalId = setInterval( async () => {
         navigator.permissions.query({ name: "camera" }).then(res => {
           if(res.state == "granted"){
@@ -148,7 +153,6 @@ function Detector() {
     if(isGranted) {
       return () => {
           clearInterval(intervalId);
-          clearAllBodyScrollLocks()
         }
     }
   },[])
@@ -185,6 +189,9 @@ function Detector() {
           ref={webcamRef}
           screenshotFormat='image/jpeg'
           className='webcam'
+          width={780}
+          height={400}
+          videoConstraints={videoConstraints}
         /> 
         </div>
          {!isGranted && (
