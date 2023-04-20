@@ -268,7 +268,7 @@ function submit() {
                   icon={"less-than"}
                   alt={"back"}
                   aria-hidden="true"
-                  className="back-icon"
+                  className={page == 1 ? "back-icon disabled" : "back-icon"}
                   onClick={() => handleBack()}
                 />
               </div>
@@ -283,7 +283,7 @@ function submit() {
                   icon={"greater-than"}
                   alt={"back"}
                   aria-hidden="true"
-                  className="next-icon"
+                  className={page == answers.length ? "next-icon disabled" : "next-icon"}
                   onClick={() => handleNext()}
                 />
               </div>
@@ -507,7 +507,7 @@ function submit() {
                   icon={"less-than"}
                   alt={"back"}
                   aria-hidden="true"
-                  className="back-icon"
+                  className={page == 1 ? "back-icon disabled" : "back-icon"}
                   onClick={() => handleBack()}
                 />
               </div>
@@ -519,7 +519,7 @@ function submit() {
                   icon={"greater-than"}
                   alt={"next"}
                   aria-hidden="true"
-                  className="next-icon"
+                  className={page == answers.length ? "next-icon disabled" : "next-icon"}
                   onClick={() => handleNext()}
                 />
               </div>

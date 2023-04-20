@@ -86,3 +86,7 @@ textarea:focus {
   margin-top: 5%;
   width: 150%;
 }
+
+.disabled {
+  color: rgba(167, 167, 167, 0.76);
+}
