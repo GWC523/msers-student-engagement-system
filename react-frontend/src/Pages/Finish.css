@@ -15,6 +15,7 @@ a:link, a:visited {
   color: #00A98C;
 }
 
+
 .finish-content {
   margin: 0% 0% 0% 5%;
   text-align: left;
@@ -84,6 +85,7 @@ textarea:focus {
 
 .slider {
   margin-top: 5%;
+  margin-left: 6%;
   width: 150%;
 }
 

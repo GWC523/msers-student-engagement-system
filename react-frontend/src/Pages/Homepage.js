@@ -99,7 +99,7 @@ function Homepage() {
                                     <input type="text" name="student_id" className='input__text_2' placeholder='Student ID' value={personalDetails.student_id} onChange={(e) => handleChange(e)}/>
                                     <InputError isValid={isError.student_id} message={'Student ID is required*'}/>
                                     <select id="standard__select" name="gender" value={personalDetails.gender} onChange={(e) => handleChange(e)}>
-                                        <option value="" selected disabled>Gender</option>
+                                        <option value="" selected disabled>Sex</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
