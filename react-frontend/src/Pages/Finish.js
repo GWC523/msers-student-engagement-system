@@ -5,8 +5,14 @@ import 'rc-slider/assets/index.css'
 
 import './Finish.css'
 
-import Example from '../Assets/Images/example.png'
-import Example2 from '../Assets/Images/example2.png'
+import Slide_1 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-2.jpg';
+import Slide_2 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-3.jpg';
+import Slide_3 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-4.jpg';
+import Slide_4 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-5.jpg';
+import Slide_5 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-6.jpg';
+import Slide_6 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-7.jpg';
+import Slide_7 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-8.jpg';
+import Slide_8 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-9.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createSelfReportEngagement, createSelfReportInfo } from '../Helper/ApiCalls/SurveyApi'
 import { getParticipantId, getStudentId } from '../Helper/Utils/Common'
@@ -24,6 +30,16 @@ function Finish() {
     camera_spec: "",
     computer_spec: ""
   })
+  const slides = [
+    Slide_1,
+    Slide_2,
+    Slide_3,
+    Slide_4,
+    Slide_5,
+    Slide_6,
+    Slide_7,
+    Slide_8
+  ]
   const [answers, setAnswers] = useState([
     {
       slide_no: "1",
@@ -42,6 +58,96 @@ function Finish() {
     },
     {
       slide_no: "2",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "3",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "4",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "5",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "6",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "7",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "8",
       q1: "5",
       q2: "5",
       q3: "5",
@@ -272,12 +378,9 @@ function submit() {
                   onClick={() => handleBack()}
                 />
               </div>
-              {page == 1 && (
-                 <img src={Example} className="survey__image floating" alt="survey image 1"/>
-              )}
-              {page == 2 && (
-                 <img src={Example2} className="survey__image floating" alt="survey image 2"/>
-              )}
+
+              <img src={slides[page - 1]} className="survey__image floating" alt="survey image 1"/>
+
               <div className='col-sm-2 d-flex justify-content-end mt-5'>
                 <FontAwesomeIcon
                   icon={"greater-than"}

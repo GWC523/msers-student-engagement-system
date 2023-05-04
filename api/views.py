@@ -198,6 +198,7 @@ def DetermineEngagement(request):
     participant_id = request.data.get('participant_id')
     timestamp = request.data.get('timestamp')
     frame_data = request.data.get('frame_data')
+    last_frame = request.data.get('last_frame')
     emotional_engagement = request.data.get('emotional_engagement')
 
     print("Emotional Engagement:", emotional_engagement)
@@ -210,10 +211,11 @@ def DetermineEngagement(request):
     img_array = np.frombuffer(converted_frame_data, np.uint8)
     img = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
-    last_obj = SystemDetectedEngagement.objects.filter(participant_id=participant_id).order_by('-timestamp').first()
+    # last_obj = SystemDetectedEngagement.objects.filter(participant_id=participant_id).order_by('-timestamp').first()
+    last_obj = last_frame
 
     if last_obj is not None:
-        last_img_array = np.frombuffer(last_obj.frame_data, np.uint8)
+        last_img_array = np.frombuffer(last_obj, np.uint8)
         last_img = cv2.imdecode(last_img_array, cv2.IMREAD_COLOR)
     else:
         last_img = None
@@ -225,7 +227,6 @@ def DetermineEngagement(request):
     frame = SystemDetectedEngagement(timestamp=timestamp,
                                      student_id=student_id, 
                                      participant_id=participant_id,
-                                     frame_data=converted_frame_data,
                                      emotional_engagement=engagement_result["emotional"],
                                      behavioral_engagement=engagement_result["behavioral"],
                                      cognitive_engagement=engagement_result["cognitive"])

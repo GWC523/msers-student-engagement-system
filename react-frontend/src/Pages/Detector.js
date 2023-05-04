@@ -32,6 +32,7 @@ function MyStopwatch() {
 
 function Detector() {
   let navigate = useNavigate();
+  let lastimg = "";
   const pageRef = useRef(null);
   const [isGranted, setIsGranted] = useState(true);
   const webcamRef = useRef(null);
@@ -43,18 +44,18 @@ function Detector() {
 };
 
   async function submit(frame_data, emotion_engagement) {
-    console.log("Emotion Engagement in react:", emotion_engagement)
     const response = await createEngagement({
       "student_id": getStudentId(),
       "participant_id": getParticipantId(),
       "frame_data": frame_data,
+      "last_frame": lastimg,
       "timestamp": new Date(),
       "emotional_engagement": emotion_engagement,
     });
-    console.log(response)
     if(response.data.status != 200) {
       toast.error("An unexpected error occurred.")
     }
+    lastimg = frame_data
   }
 
   useEffect(() => {
@@ -126,20 +127,18 @@ function Detector() {
                     emotion = prop;
                   }
                 }
-                
-                console.log(emotion, calculate_emotional(emotion, maxVal))
 
                 capture(calculate_emotional(emotion, maxVal))
               } else {
                 capture(calculate_emotional('neutral', 0))
               }
         }
-        }, 5000)
+        },6000)
 
         return () => {
           clearInterval(intervalId);
         }
-    }, 1000);
+    }, 10000);
   },[webcamRef])
 
   useEffect(() => {
