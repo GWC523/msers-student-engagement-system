@@ -56,7 +56,6 @@ class SystemDetectedEngagement(models.Model):
     timestamp = models.DateTimeField(null=True, blank=True, default=b'')
     participant_id = models.CharField(max_length=250, null=False, blank=False, default=b'')
     student_id = models.CharField(max_length=250, null=False, blank=False, default=b'')
-    frame_data = models.BinaryField(null=True, blank=True, default=b'')
     emotional_engagement = models.CharField(max_length=250, null=False, blank=False)
     behavioral_engagement = models.CharField(max_length=250, null=False, blank=False)
     cognitive_engagement = models.CharField(max_length=250, null=False, blank=False)

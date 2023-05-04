@@ -44,6 +44,7 @@ function Detector() {
 };
 
   async function submit(frame_data, emotion_engagement) {
+    lastimg = frame_data
     const response = await createEngagement({
       "student_id": getStudentId(),
       "participant_id": getParticipantId(),
@@ -55,7 +56,6 @@ function Detector() {
     if(response.data.status != 200) {
       toast.error("An unexpected error occurred.")
     }
-    lastimg = frame_data
   }
 
   useEffect(() => {

@@ -201,8 +201,6 @@ def DetermineEngagement(request):
     last_frame = request.data.get('last_frame')
     emotional_engagement = request.data.get('emotional_engagement')
 
-    print("Emotional Engagement:", emotional_engagement)
-
     if frame_data is None:
         # handle the case where frame_data is None
         return Response('No frame data received')
@@ -220,9 +218,9 @@ def DetermineEngagement(request):
     else:
         last_img = None
 
-    print(last_img is not None)
     engagement_result = msers.detect_overall_eng_per_frame(img, last_img, last_img, emotional_engagement)
     print(engagement_result)
+    print("with last frame data", last_img != None)
 
     frame = SystemDetectedEngagement(timestamp=timestamp,
                                      student_id=student_id, 
