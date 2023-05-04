@@ -50,7 +50,7 @@ function Detector() {
       "participant_id": getParticipantId(),
       "frame_data": frame_data,
       "last_frame": lastimg,
-      "timestamp": new Date(),
+      "timestamp": new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Manila" })),
       "emotional_engagement": emotion_engagement,
     });
     if(response.data.status != 200) {
