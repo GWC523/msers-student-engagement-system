@@ -5,14 +5,30 @@ import 'rc-slider/assets/index.css'
 
 import './Finish.css'
 
-import Slide_1 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-2.jpg';
-import Slide_2 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-3.jpg';
-import Slide_3 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-4.jpg';
-import Slide_4 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-5.jpg';
-import Slide_5 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-6.jpg';
-import Slide_6 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-7.jpg';
-import Slide_7 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-8.jpg';
-import Slide_8 from '../Assets/Images/Tutorial (system testing)/Tutorial (system testing)-9.jpg';
+import Slide_1 from '../Assets/Images/comsec/slide_1.png';
+import Slide_2 from '../Assets/Images/comsec/slide_2.png';
+import Slide_3 from '../Assets/Images/comsec/slide_3.png';
+import Slide_4 from '../Assets/Images/comsec/slide_4.png';
+import Slide_5 from '../Assets/Images/comsec/slide_5.png';
+import Slide_6 from '../Assets/Images/comsec/slide_6.png';
+import Slide_7 from '../Assets/Images/comsec/slide_7.png';
+import Slide_8 from '../Assets/Images/comsec/slide_8.png';
+import Slide_9 from '../Assets/Images/comsec/slide_9.png';
+import Slide_10 from '../Assets/Images/comsec/slide_10.png';
+import Slide_11 from '../Assets/Images/comsec/slide_11.png';
+import Slide_12 from '../Assets/Images/comsec/slide_12.png';
+import Slide_13 from '../Assets/Images/comsec/slide_13.png';
+import Slide_14 from '../Assets/Images/comsec/slide_14.png';
+import Slide_15 from '../Assets/Images/comsec/slide_15.png';
+import Slide_16 from '../Assets/Images/comsec/slide_16.png';
+import Slide_17 from '../Assets/Images/comsec/slide_17.png';
+import Slide_18 from '../Assets/Images/comsec/slide_18.png';
+import Slide_19 from '../Assets/Images/comsec/slide_19.png';
+import Slide_20 from '../Assets/Images/comsec/slide_20.png';
+import Slide_21 from '../Assets/Images/comsec/slide_21.png';
+import Slide_22 from '../Assets/Images/comsec/slide_22.png';
+import Slide_23 from '../Assets/Images/comsec/slide_23.png';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createSelfReportEngagement, createSelfReportInfo } from '../Helper/ApiCalls/SurveyApi'
 import { getParticipantId, getStudentId } from '../Helper/Utils/Common'
@@ -38,7 +54,22 @@ function Finish() {
     Slide_5,
     Slide_6,
     Slide_7,
-    Slide_8
+    Slide_8,
+    Slide_9,
+    Slide_10,
+    Slide_11,
+    Slide_12,
+    Slide_13,
+    Slide_14,
+    Slide_15,
+    Slide_16,
+    Slide_17,
+    Slide_18,
+    Slide_19,
+    Slide_20,
+    Slide_21,
+    Slide_22,
+    Slide_23
   ]
   const [answers, setAnswers] = useState([
     {
@@ -148,6 +179,231 @@ function Finish() {
     },
     {
       slide_no: "8",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "9",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "10",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "11",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "12",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "13",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "14",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "15",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "16",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "17",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "18",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "19",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "20",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "21",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "22",
+      q1: "5",
+      q2: "5",
+      q3: "5",
+      q4: "5",
+      q5: "5",
+      q6: "5",
+      q7: "5",
+      q8: "5",
+      q9: "5",
+      q10: "5",
+      q11: "5",
+      q12: "5",
+    },
+    {
+      slide_no: "23",
       q1: "5",
       q2: "5",
       q3: "5",

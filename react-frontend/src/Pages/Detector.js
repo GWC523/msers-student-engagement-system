@@ -36,6 +36,8 @@ function Detector() {
   const pageRef = useRef(null);
   const [isGranted, setIsGranted] = useState(true);
   const webcamRef = useRef(null);
+  const [isRedirected, setIsRedirected] = useState(false);
+
 
   const videoConstraints = {
   width: 780,
@@ -44,7 +46,6 @@ function Detector() {
 };
 
   async function submit(frame_data, emotion_engagement) {
-    lastimg = frame_data
     const response = await createEngagement({
       "student_id": getStudentId(),
       "participant_id": getParticipantId(),
@@ -55,6 +56,10 @@ function Detector() {
     });
     if(response.data.status != 200) {
       toast.error("An unexpected error occurred.")
+    } else {
+        lastimg = frame_data
+        console.log(lastimg == frame_data)
+        console.log("updated code!")
     }
   }
 
@@ -70,7 +75,6 @@ function Detector() {
 
   const stopStreaming = () => {
     clearInterval();
-
     navigate("/survey")
   }
 
@@ -105,9 +109,10 @@ function Detector() {
   }
 
   useEffect(() => {
+    let intervalId;
     setTimeout(function () {
-       const intervalId = setInterval( async () => {
-        if(isGranted) {
+      intervalId = setInterval( async () => {
+        if(isGranted && !isRedirected) {
             const video = webcamRef.current.video;
             const canvas = faceapi.createCanvasFromMedia(video);
             // Set canvas dimensions
@@ -132,6 +137,8 @@ function Detector() {
               } else {
                 capture(calculate_emotional('neutral', 0))
               }
+        } else {
+          clearInterval(intervalId);
         }
         },6000)
 
@@ -139,7 +146,12 @@ function Detector() {
           clearInterval(intervalId);
         }
     }, 10000);
-  },[webcamRef])
+    setTimeout(() => {
+      clearInterval(intervalId);
+      setIsRedirected(true);
+      stopStreaming();
+    }, 30 * 60 * 1000)
+  },[webcamRef, isRedirected])
 
   useEffect(() => {
       const intervalId = setInterval( async () => {
@@ -158,6 +170,8 @@ function Detector() {
         }
     }
   },[])
+
+
 
 
   return (

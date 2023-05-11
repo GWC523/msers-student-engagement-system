@@ -10,7 +10,8 @@ class SD:
         Returns:
             Bool value if a person is speaking or not
         """
-        prev_img = cv2.resize(prev_img, (width, height))
+        if prev_img is not None:
+            prev_img = cv2.resize(prev_img, (width, height))
         curr_img = cv2.resize(curr_img, (width, height))
         diff = cv2.absdiff(prev_img, curr_img)
         norm = np.sum(diff) / (width*height) * 100
