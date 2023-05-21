@@ -17,5 +17,13 @@ The above shows the software architecture that is followed in the study for the 
 # TESTING SITE 
 https://msers.site/
 
+## License 📄
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Author
+
+Gwyneth Chiu - https://github.com/GWC523
+
 
 
